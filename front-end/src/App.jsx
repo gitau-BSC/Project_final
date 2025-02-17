@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './assets/Css/index.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom'; // Remove BrowserRouter import
 import Home from './pages/Home';
 import Create from './pages/Create';
 import Read from './pages/Read';
@@ -94,15 +94,14 @@ function App() {
           <button type="submit" className="submit-button">Register</button>
         </form>
       </div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/read" element={<Read />} />
-          <Route path="/update" element={<Update />} />
-          <Route path="*" element={<h2>404 Page Not Found</h2>} />
-        </Routes>
-      </Router>
+      {/* Remove <Router> here */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/read" element={<Read />} />
+        <Route path="/update" element={<Update />} />
+        <Route path="*" element={<h2>404 Page Not Found</h2>} />
+      </Routes>
     </>
   );
 }

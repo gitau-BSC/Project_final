@@ -2,15 +2,15 @@
 
 import React from 'react';
 import Slider from 'react-slick';
-import './Carousel.css';
+import '../../assets/Css/Carousel.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 // Importing images directly
 
-import hostel from '../assets/images/hostel.jpg';
-import hostel2 from '../assets/images/hostel2.jpg';
-import hostel4 from '../assets/images/hostel4.jpg';
+import hostel from '../../assets/images/hostel.jpg';
+import hostel2 from '../../assets/images/hostel2.jpg';
+import hostel4 from '../../assets/images/hostel4.jpg';
 
 const Carousel = () => {
     const images = [
