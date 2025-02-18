@@ -1,17 +1,10 @@
-// filepath: /c:/Users/HP/Desktop/facial-recognition-hostel/front-end/src/main.jsx
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import './assets/Css/index.css';
+import App from './App';
+import './assets/styles/index.css';
 
-const container = document.getElementById('root');
-
-// Create a root
-const root = createRoot(container);
-
-// Render your app
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <App />

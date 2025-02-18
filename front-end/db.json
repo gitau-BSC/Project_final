@@ -1,0 +1,11 @@
+{
+    "students": [
+      { "id": 1, "name": "Clare Gitau", "room": "A101" },
+      { "id": 2, "name": "Jane Wanjiku", "room": "B203" }
+    ],
+    "users": [
+      { "id": 1, "username": "admin", "password": "12345" },
+      { "id": 2, "username": "user", "password": "12345" }
+    ]
+  }
+  

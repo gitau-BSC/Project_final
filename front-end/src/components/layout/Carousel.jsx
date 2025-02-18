@@ -1,63 +1,28 @@
-//Carousel.jsx
+import { useState } from 'react';
+import { Carousel } from 'react-bootstrap';
 
-import React from 'react';
-import Slider from 'react-slick';
-import '../../assets/Css/Carousel.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+const HomeCarousel = () => {
+  const [index, setIndex] = useState(0);
 
-// Importing images directly
-
-import hostel from '../../assets/images/hostel.jpg';
-import hostel2 from '../../assets/images/hostel2.jpg';
-import hostel4 from '../../assets/images/hostel4.jpg';
-
-const Carousel = () => {
-    const images = [
-    {
-        id: 1,
-        src: '../assets/images/hostel.jpg',
-        alt: 'Hostel image 1'
-    },
-    {
-        id: 2,
-        src: '../assets/images/hostel2.jpg',
-        alt: 'Image 2'
-    },
-    {
-        id: 3,
-        src: '../assets/images/hostel4.jpg',
-        alt: 'image3'
-    },
-
-];
-
-  const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1, 
-      slidesToScroll: 1,
-      responsive: [
-          { breakpoint: 1024, settings: { slidesToShow: 1, slidesToScroll: 1, dots: true } },
-          { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } }
-      ]
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
   };
 
-
-    return (
-        <>
-           <div className="full-width-carousel">
-            <Slider {...settings}>
-                {images.map((image) => (
-                    <div key={image.id} className="full-width-slide">
-                        <img src={image.src} alt={image.alt} className="slide-image" />
-                    </div>
-                ))}
-            </Slider>
-        </div>
-        </>
-    );
+  return (
+    <Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="/api/placeholder/800/400"
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h3>Modern Hostel Facilities</h3>
+          <p>Comfortable and secure accommodation for students.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+  );
 };
 
-export default Carousel;
+export default HomeCarousel;

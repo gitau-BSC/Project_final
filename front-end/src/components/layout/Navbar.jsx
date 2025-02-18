@@ -1,47 +1,85 @@
-import { Link } from 'react-router-dom';
-import logo from '../../assets/images/hostel2.jpg';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navbar as BootstrapNavbar, Nav, Container, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "../../assets/styles/Navbar.css";
+
 
 const Navbar = () => {
-    return (
-       <div>
-           <section className="header">
-                <div className="nav-bg">
-                        <nav className="navbar navbar-expand-lg">
-                           <div className="container-fluid">
-                           <img src={ logo } alt="" className="navbar-brand logo" />
-                           <h2 className="main-heading">LAYSON HOSTELS</h2>
-                           <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                           aria-expanded="false" aria-label="Toggle navigation">
-                               <span className="navbar-toggler-icon"></span>
-                          </button>
-                           <div className="nav-links collapse navbar-collapse" id="navbarSupportedContent">
-                              <ul className="navbar-nav ms-auto">
-                                    <li className="nav-item">
-                                       <Link className="navTxt nav-link" to="/">Home</Link>
-                                   </li>
-                                    <li className="nav-item">
-                                       <Link className="navTxt nav-link" to="/about">ABOUT</Link>
-                                  </li>
-                                   <li className="nav-item">
-                                       <Link className="navTxt nav-link" to="#contact">CONTACT</Link>
-                                   </li>
-                                   <li className="nav-item">
-                                      <Link className="navTxt nav-link" to="/auth">LOGIN</Link>
-                                  </li>
-                              </ul>
-                          </div>
-                          </div>
-                          </nav>                 
-                      </div>
-                      <div className="text-box">
-                          <h1>Welcome to Layson's</h1>
-                          <p>A Serene place where quality is our Top priority.</p>
-                          <Link to="#about" className="hero-btn">Visit to know all about us.</Link>
-                      </div>
-          </section>
-      </div>
-    )
-}
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Replace with your auth state
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Add your logout logic here
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
+
+  return (
+    <BootstrapNavbar 
+      bg="dark" 
+      variant="dark" 
+      expand="lg" 
+      className="py-3 sticky-top"
+    >
+      <Container>
+        <BootstrapNavbar.Brand as={Link} to="/">
+          Hostel Management
+        </BootstrapNavbar.Brand>
+        
+        <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
+        
+        <BootstrapNavbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/about">About</Nav.Link>
+            <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+            {isAuthenticated && (
+              <>
+                <Nav.Link as={Link} to="/book-now">Book Now</Nav.Link>
+                <Nav.Link as={Link} to="/student-dashboard">Dashboard</Nav.Link>
+              </>
+            )}
+          </Nav>
+          
+          <Nav>
+            {!isAuthenticated ? (
+              <>
+                <Button 
+                  as={Link} 
+                  to="/login" 
+                  variant="outline-light" 
+                  className="me-2"
+                >
+                  Login
+                </Button>
+                <Button 
+                  as={Link} 
+                  to="/register" 
+                  variant="light"
+                >
+                  Register
+                </Button>
+              </>
+            ) : (
+              <div className="d-flex align-items-center">
+                <Nav.Link as={Link} to="/profile" className="me-3">
+                  My Profile
+                </Nav.Link>
+                <Button 
+                  variant="outline-light" 
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </div>
+            )}
+          </Nav>
+        </BootstrapNavbar.Collapse>
+      </Container>
+    </BootstrapNavbar>
+  );
+};
 
 export default Navbar;
+
