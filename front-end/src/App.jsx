@@ -6,9 +6,9 @@ import LoginForm from './components/features/auth/LoginForm';
 import About from './components/About';
 import Contact from './components/Contact';
 import BookNow from './components/BookNow';
-import StudentDashboard from './components/StudentDashboard';
 import RegisterForm from './components/features/auth/RegisterForm';
-function App() {
+
+const App = () => {
   return (
     <Layout>
       <Routes>
@@ -18,7 +18,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/book-now" element={<BookNow />} />
-        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        {/* <Route path="/student-dashboard" element={<StudentDashboard />} /> */}
         <Route path="*" element={<h2>404 Page Not Found</h2>} />
       </Routes>
     </Layout>

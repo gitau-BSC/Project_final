@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar as BootstrapNavbar, Nav, Container, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../../assets/styles/Navbar.css";
-
+import "../../assets/styles/navigation/Navbar.css";
 
 const Navbar = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Replace with your auth state
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
   const navigate = useNavigate();
 
   const handleLogout = () => {

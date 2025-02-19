@@ -1,19 +1,20 @@
-import Navbar from "./layout/Navbar";
+import Navbar from "./navigation/Navbar";
 import About from "./About";
-import Carousel from "./layout/Carousel";
+import HomeCarousel from "./carousel/Carousel";
 import Contact from "./Contact";
 import Footer from "./layout/Footer";
 
-function Home() {
+const Home = () => {
   return (
-    <div className="home-container">
+    <div>
       <Navbar />
+      <HomeCarousel />
       <section className="hero-section">
         <h2 style={{ color: "white" }}>
           Welcome to the Hostel Management System
         </h2>
         <div className="w-full max-w-6xl mx-auto px-4 mb-8">
-          <Carousel />
+          <HomeCarousel />
         </div>
       </section>
       <About />

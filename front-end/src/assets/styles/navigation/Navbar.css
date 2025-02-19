@@ -1,5 +1,5 @@
 .navbar {
-  background-color: red !important;
+  background-color: #f8f9f0;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -31,7 +31,9 @@
 }
 
 .nav-link:hover {
-  color: #fff !important;
+  color: #fff;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
 }
 
 .btn {
@@ -41,4 +43,6 @@
 .btn-outline-light:hover {
   background-color: #fff;
   color: #212529;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
 }
