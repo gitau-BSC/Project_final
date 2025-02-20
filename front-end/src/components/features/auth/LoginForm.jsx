@@ -1,112 +1,84 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Input from '../../common/Input';
-import "../../../assets/styles/components/Login.css";
-// import "@/assets/styles/components/Login.css";
-
-const LoginForm = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    try {
-      // Replace API endpoint
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        navigate('/student-dashboard');
-      } else {
-        const data = await response.json();
-        setErrors({ submit: data.message });
-      }
-    } catch (error) {
-      setErrors({ submit: 'Login failed. Please try again.' });
-    }
-  };
-
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {Link} from 'react-router-dom'
+export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
-        </h2>
-      </div>
-
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <Input
-              label="Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              error={errors.email}
-            />
-            <Input
-              label="Password"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              error={errors.password}
-            />
-
-            {errors.submit && (
-              <div className="text-red-500 text-sm">{errors.submit}</div>
-            )}
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember_me"
-                  name="remember_me"
-                  type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+    <div className="w-screen flex flex-col min-h-screen bg-gray-100">
+      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+          </div>
+          <form className="mt-8 space-y-6 p-5 border rounded-md" action="#" method="POST">
+            <div className="rounded-md shadow-sm space-y-5">
+              <div>
+                <Label htmlFor="email-address" className="sr-only">
+                  Email address
+                </Label>
+                <Input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="rounded-t-md"
+                  placeholder="Email address"
                 />
-                <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
               </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                  Forgot your password?
-                </a>
+              <div>
+                <Label htmlFor="password" className="sr-only">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="rounded-b-md"
+                  placeholder="Password"
+                />
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Sign in
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-};
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <Label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                  Remember me
+                </Label>
+              </div>
 
-export default LoginForm;
+              <div className="text-sm">
+                <Link href="#" className="font-medium text-primary hover:text-primary-dark">
+                  Forgot your password?
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <Button type="submit" className="w-full">
+                Sign in
+              </Button>
+            </div>
+          </form>
+          <div className="text-center">
+            <p className="mt-2 text-sm text-gray-600">
+              Don't have an account?{" "}
+              <Link to="/register" className="font-medium text-primary hover:text-primary-dark">
+                Sign up
+              </Link>
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
+
