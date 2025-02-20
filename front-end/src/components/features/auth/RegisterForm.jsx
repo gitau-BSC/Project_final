@@ -14,6 +14,7 @@ export default function SignupPage() {
           <form className="mt-8 space-y-6 border rounded-md p-4" action="#" method="POST">
             <div className="rounded-md shadow-sm space-y-5 p-2">
               <div>
+
                 <Label htmlFor="name" className="sr-only">
                   Full Name
                 </Label>
