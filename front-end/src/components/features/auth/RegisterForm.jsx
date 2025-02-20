@@ -1,152 +1,92 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Input from '../../common/Input';
+import {Link} from 'react-router-dom'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
-const RegisterForm = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    studentId: '',
-    phoneNumber: ''
-  });
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.firstName) newErrors.firstName = 'First name is required';
-    if (!formData.lastName) newErrors.lastName = 'Last name is required';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.password) newErrors.password = 'Password is required';
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-    if (!formData.studentId) newErrors.studentId = 'Student ID is required';
-    if (!formData.phoneNumber) newErrors.phoneNumber = 'Phone number is required';
-    
-    return newErrors;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = validateForm();
-    
-    if (Object.keys(newErrors).length === 0) {
-      try {
-        // Replace with your API endpoint
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-        
-        if (response.ok) {
-          navigate('/login');
-        } else {
-          const data = await response.json();
-          setErrors({ submit: data.message });
-        }
-      } catch (error) {
-        setErrors({ submit: 'Registration failed. Please try again.' });
-      }
-    } else {
-      setErrors(newErrors);
-    }
-  };
-
+export default function SignupPage() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">
-          Create your account
-        </h2>
-      </div>
+    <div className="w-screen flex flex-col min-h-screen bg-gray-100">
+      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Create your account</h2>
+          </div>
+          <form className="mt-8 space-y-6 border rounded-md p-4" action="#" method="POST">
+            <div className="rounded-md shadow-sm space-y-5 p-2">
+              <div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <Input
-              label="First Name"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              error={errors.firstName}
-            />
-            <Input
-              label="Last Name"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              error={errors.lastName}
-            />
-            <Input
-              label="Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              error={errors.email}
-            />
-            <Input
-              label="Student ID"
-              name="studentId"
-              value={formData.studentId}
-              onChange={handleChange}
-              error={errors.studentId}
-            />
-            <Input
-              label="Phone Number"
-              type="tel"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              error={errors.phoneNumber}
-            />
-            <Input
-              label="Password"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              error={errors.password}
-            />
-            <Input
-              label="Confirm Password"
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              error={errors.confirmPassword}
-            />
+                <Label htmlFor="name" className="sr-only">
+                  Full Name
+                </Label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className="rounded-t-md"
+                  placeholder="Full Name"
+                />
+              </div>
+              <div>
+                <Label htmlFor="email-address" className="sr-only">
+                  Email address
+                </Label>
+                <Input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  placeholder="Email address"
+                />
+              </div>
+              <div>
+                <Label htmlFor="password" className="sr-only">
+                  Password
+                </Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  placeholder="Password"
+                />
+              </div>
+              <div>
+                <Label htmlFor="confirm-password" className="sr-only">
+                  Confirm Password
+                </Label>
+                <Input
+                  id="confirm-password"
+                  name="confirm-password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="rounded-b-md"
+                  placeholder="Confirm Password"
+                />
+              </div>
+            </div>
 
-            {errors.submit && (
-              <div className="text-red-500 text-sm">{errors.submit}</div>
-            )}
-
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Register
-            </button>
+            <div>
+              <Button type="submit" className="w-full">
+                Sign up
+              </Button>
+            </div>
           </form>
+          <div className="text-center">
+            <p className="mt-2 text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link href="/login" className="font-medium text-primary hover:text-primary-dark">
+                Sign in
+              </Link>
+            </p>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterForm;
